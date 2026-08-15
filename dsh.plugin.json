@@ -1,0 +1,12 @@
+{
+  "name": "dsh-chatfile",
+  "description": "WebUI 聊天框拖拽/选择上传任意文件",
+  "version": "0.1.0",
+  "entry": {
+    "name": "dsh-chatfile",
+    "inject": []
+  },
+  "client": {
+    "platform": "web"
+  }
+}
