@@ -5,6 +5,9 @@
   "license": "MIT",
   "type": "module",
   "main": "lib/index.js",
+  "bin": {
+    "dsh-chatfile": "bin/cli.mjs"
+  },
   "exports": {
     ".": {
       "default": "./lib/index.js"
@@ -29,6 +32,7 @@
   },
   "files": [
     "lib",
+    "bin",
     "cordis.patch.yml",
     "dsh.plugin.json",
     "README.md",
