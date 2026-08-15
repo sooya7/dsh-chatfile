@@ -15,7 +15,6 @@ DeepSeek Harness WebUI 插件：在聊天框中**拖拽或选择任意文件**�
 - ✍️ **路径引用**：上传完成自动在输入框追加 `[上传文件] uploads/xxx.pdf（名称，大小）`，发送后 agent 用普通文件工具即可读取
 - 🖼️ **图片兼容**：纯图片拖拽仍然走内置图片流程（预览条 + 图片附件）；非图片 / 混合拖拽由本插件接管
 - 🔒 **安全下载**：下载走不可猜测的随机 token 路由（无路径输入，无穿越面）；文件名/大小/类型均在 Host 校验，单文件上限 50MB
-- 🛠️ **CLI**：内置命令行工具，管理构建 / 安装 / 重启 / 状态 / 文件（见下方「CLI」）
 
 ## 目录结构
 
@@ -23,37 +22,9 @@ DeepSeek Harness WebUI 插件：在聊天框中**拖拽或选择任意文件**�
 src/
   index.ts          Host 半区：POST /chatfile/upload + GET /chatfile/download/<token>
   client/index.ts   Client 半区：拖拽捕获、📎 按钮、状态条、输入框引用
-bin/cli.mjs         零依赖 CLI（build / install / status / restart / ls / upload）
 build.mjs           esbuild 构建（host ESM + client ModuleLoader 单文件包）
 cordis.patch.yml    组合补丁（插入 dsh-chatfile 插件行）
 .github/            release 自动构建 workflow
-```
-
-## CLI
-
-仓库自带零依赖 CLI（Node ≥ 18），全局安装一次即可随处使用：
-
-```bash
-cd dsh-chatfile
-npm link          # 或 pnpm link --global
-```
-
-```bash
-dsh-chatfile build      构建插件（host + client bundles 到 lib/）
-dsh-chatfile install    安装/更新到 web profile（之后需 restart 生效）
-dsh-chatfile status     检查服务与插件状态（进程 / 路由 / bundle 探测）
-dsh-chatfile restart    重启 dsh web 服务（systemctl，失败则 SIGTERM 自动拉起）
-dsh-chatfile ls         列出 uploads/ 文件（默认 <cwd>/uploads/，--dir 指定）
-dsh-chatfile upload     复制本地文件到 uploads/（重名自动 -1；默认 <cwd>/uploads/）
-dsh-chatfile help       帮助
-```
-
-示例：
-
-```bash
-dsh-chatfile install && dsh-chatfile restart
-dsh-chatfile upload report.pdf 数据.xlsx
-dsh-chatfile ls --dir /home/developer/dsh
 ```
 
 ## 构建
